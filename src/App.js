@@ -1,30 +1,15 @@
 import "./App.less";
 import * as React from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to React Router!</h1>
+    <div className="body">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
       </Routes>
     </div>
-  );
-}
-
-// App.js
-function Home() {
-  return (
-    <>
-      <main>
-        <h2>Welcome to the homepage!</h2>
-        <p>You can do this, I believe in you.</p>
-      </main>
-      <nav>
-        <Link to="/about">About</Link>
-      </nav>
-    </>
   );
 }
 

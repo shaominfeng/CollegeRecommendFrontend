@@ -1,19 +1,34 @@
-// App.js
-import { Link } from "react-router-dom";
 import * as React from "react";
-
-function Home() {
+import { useEffect } from "react";
+import { findAll } from "../../apis/commom";
+import { Col, Layout, Row, Space } from "antd";
+const { Header, Footer, Content } = Layout;
+import "./index.less";
+import Main from "../Main";
+const Home = () => {
+  useEffect(() => {
+    //TODO: login account email
+    (async function doCall() {
+      const user = (await findAll()).data;
+    })();
+  }, []);
   return (
-    <>
-      <main>
-        <h2>Welcome to the homepage!</h2>
-        <p>You can do this, I believe in you.</p>
-      </main>
-      <nav>
-        <Link to="/about">About</Link>
-      </nav>
-    </>
+    <Layout className="body">
+      <Header className="header">
+        <h1 className="title">2022年高考志愿学校推荐</h1>
+      </Header>
+      <Content className="content">
+        <Row className="main">
+          <Col span={4}></Col>
+          <Col span={16}>
+            <Main />
+          </Col>
+          <Col span={4}></Col>
+        </Row>
+      </Content>
+      {/*<Footer className="footer"> Footer</Footer>*/}
+    </Layout>
   );
-}
+};
 
 export default Home;

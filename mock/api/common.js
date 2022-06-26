@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const BASE_PATH = "/mock/bff";
-const resource = "account";
+const BASE_PATH = "/mock/";
+const resource = "common";
 /**
  *
  * @param {String} resource resource
@@ -23,11 +23,19 @@ module.exports = {
   /**
    * method two : mock data with mockjs (http://mockjs.com/)
    */
-  ...produceRequest("loginUser", "GET", (res, data) =>
+  ...produceRequest("api/universities/year/2021/subject/history", "GET", (res, data) =>
     res.json({
       status: 200,
       message: "success",
       data: data,
     })
   ),
+  ...produceRequest("/universities/subject/history/score/477/recommend/100", "GET", (res, data) =>
+    res.json({
+      status: 200,
+      message: "success",
+      data: data,
+    })
+  )
 };
+

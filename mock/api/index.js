@@ -1,3 +1,3 @@
 module.exports = {
-  account: require("./account"),
+  common: require("./common"),
 };

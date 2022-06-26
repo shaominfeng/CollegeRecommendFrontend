@@ -18,6 +18,7 @@
     "axios": "^0.27.2",
     "craco-less": "2.1.0-alpha.0",
     "husky": "^8.0.1",
+    "json2csv": "^5.0.7",
     "lint-staged": "^12.4.2",
     "lodash.merge": "4.6.2",
     "react": "18.1.0",
@@ -29,7 +30,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco  start",
+    "start": "craco  start --watch",
     "build": "craco  build",
     "test": "craco  test",
     "eject": "react-scripts eject",
@@ -67,12 +68,12 @@
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",
     "cross-env": "^7.0.3",
-    "mocker-api": "^2.9.5",
-    "mockjs": "^1.1.0",
-    "prettier": "^2.6.2",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0"
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "mocker-api": "^2.9.5",
+    "mockjs": "^1.1.0",
+    "prettier": "^2.6.2"
   }
 }
