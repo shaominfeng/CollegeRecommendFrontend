@@ -16,7 +16,8 @@ const Main = () => {
     );
     const link = document.createElement("a");
     link.href = url;
-    link.download = "2022高考志愿推荐.csv";
+    const sub = subject === "physics" ? "物理" : "历史";
+    link.download = `2022年高考志愿推荐-${sub}-${values.score}.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -98,7 +99,7 @@ const Main = () => {
           {/*  download*/}
           {/*</Button>*/}
           <Button type="primary" htmlType="submit">
-            Submit
+            下载推荐表
           </Button>
         </Form.Item>
       </Form>
