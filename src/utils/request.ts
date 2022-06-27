@@ -25,8 +25,8 @@ const errorHandle = async (status: number, other: string) => {
 };
 console.log(customConfig);
 // const apiPreFix = customConfig.bff.apiPreFix;
-// const baseUrl = customConfig.ui.request.baseUrl;
-// request.defaults.baseURL = baseUrl;
+const baseUrl = customConfig.ui.request.baseUrl;
+request.defaults.baseURL = baseUrl;
 
 // request.defaults.timeout = customConfig.ui.request.timeout;
 request.defaults.headers.post["Content-Type"] = "application/json";

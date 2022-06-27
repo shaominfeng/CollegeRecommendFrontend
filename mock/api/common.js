@@ -23,7 +23,7 @@ module.exports = {
   /**
    * method two : mock data with mockjs (http://mockjs.com/)
    */
-  ...produceRequest("api/universities/year/2021/subject/history", "GET", (res, data) =>
+  ...produceRequest("/universities/year/2021/subject/history", "GET", (res, data) =>
     res.json({
       status: 200,
       message: "success",
