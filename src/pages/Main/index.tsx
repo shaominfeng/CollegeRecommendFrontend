@@ -1,14 +1,15 @@
-import { Button, Form, Input, Radio, RadioChangeEvent } from "antd";
+import { Button, Form, Input, Radio, RadioChangeEvent, Space } from "antd";
 import React, { useState } from "react";
 import { recommend } from "../../apis/commom";
+import RecommendTable from "./RecommendTable";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { parse } = require("json2csv");
 const Main = () => {
   const [subject, setSubject] = useState("physics");
-  // const [universities, setUniversities] = useState({});
+  const [form] = Form.useForm();
+  const [universities, setUniversities] = useState({});
   const onFinish = async (values: any) => {
     const data = (await recommend(subject, values.score)) as any;
-    // setUniversities(data);
     console.log("Success:", values.score, subject, data);
     const csv = parse(data["学校推荐"]["学校填报信息"]);
     const url = window.URL.createObjectURL(
@@ -27,19 +28,17 @@ const Main = () => {
     console.log("Failed:", errorInfo);
   };
 
-  // function download() {
-  //   try {
-  //     const response = await recommend(subject, values.score);
-  //     let fileName = "2022年志愿推荐";
-  //     const url = window.URL.createObjectURL(
-  //       new Blob([response.data], { type: "application/pdf" })
-  //     );
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.download = fileName;
-  //     link.click();
-  //   } catch (e) {}
-  // }
+  async function query() {
+    try {
+      console.log("Success:", subject, form.getFieldValue("score"));
+      const response = (await recommend(
+        subject,
+        form.getFieldValue("score")
+      )) as any;
+      setUniversities(response);
+      console.log(response);
+    } catch (e) {}
+  }
 
   const onChange = (e: RadioChangeEvent) => {
     console.log("radio checked", e.target.value);
@@ -56,6 +55,7 @@ const Main = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         size="large"
+        form={form}
       >
         {/*<Form.Item*/}
         {/*  label="选科"*/}
@@ -95,14 +95,23 @@ const Main = () => {
         {/*</Form.Item>*/}
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          {/*<Button type="primary" onClick={() => download()}>*/}
-          {/*  download*/}
-          {/*</Button>*/}
-          <Button type="primary" htmlType="submit">
-            下载推荐表
-          </Button>
+          <Space size="large">
+            <Button type="primary" onClick={query}>
+              查询
+            </Button>
+            <Button type="primary" htmlType="submit">
+              下载推荐表
+            </Button>
+          </Space>
         </Form.Item>
       </Form>
+      {(universities as any)["学校推荐"] ? (
+        <RecommendTable
+          universities={(universities as any)["学校推荐"]["学校填报信息"]}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
