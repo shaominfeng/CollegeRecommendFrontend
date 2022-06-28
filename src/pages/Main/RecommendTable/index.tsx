@@ -84,16 +84,16 @@ const RecommendTable = (props: { universities: any }) => {
   for (let i = 0; i < 100; i++) {
     data.push({
       key: i,
-      schoolId: props.universities[i].schoolId,
-      lowestScore: props.universities[i].lowestScore,
-      required: props.universities[i].required,
+      schoolId: props.universities[i]?.schoolId,
+      lowestScore: props.universities[i]?.lowestScore,
+      required: props.universities[i]?.required,
       chineseAndMathHighest:
-        props.universities[i].sortRule.chineseAndMathHighest,
-      chineseAndMath: props.universities[i].sortRule.chineseAndMath,
-      english: props.universities[i].sortRule.english,
-      firstSubject: props.universities[i].sortRule.firstSubject,
-      secondSubject: props.universities[i].sortRule.secondSubject,
-      id: props.universities[i].sortRule.id,
+        props.universities[i]?.sortRule.chineseAndMathHighest,
+      chineseAndMath: props.universities[i]?.sortRule?.chineseAndMath,
+      english: props.universities[i]?.sortRule?.english,
+      firstSubject: props.universities[i]?.sortRule?.firstSubject,
+      secondSubject: props.universities[i]?.sortRule?.secondSubject,
+      id: props.universities[i]?.sortRule?.id,
     });
   }
   console.log("data", data);

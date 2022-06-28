@@ -69,8 +69,8 @@ const Main = () => {
         form.getFieldValue("score"),
         0
       )) as any;
-      setUniversities(response);
       console.log(response);
+      setUniversities(response);
     } catch (e) {}
   }
 
