@@ -22,7 +22,7 @@ const Main = () => {
   const [form] = Form.useForm();
   const [universities, setUniversities] = useState({});
 
-  function downloadFile(data_sprint: any, values: any) {
+  function downloadFile(data_sprint: any, values: any, type: string) {
     const result = data_sprint.school.schoolInfo.map((item: any) => ({
       院校代号: item.schoolId,
       "院校、专业组（再选科目要求）": item.required,
@@ -43,18 +43,18 @@ const Main = () => {
     const link = document.createElement("a");
     link.href = url;
     const sub = subject === "physics" ? "物理" : "历史";
-    link.download = `2022年高考志愿推荐-${sub}-${values.score}.csv`;
+    link.download = `2022年高考志愿推荐-${sub}-${values.score}-${type}${data_sprint.school.schoolInfo.length}所.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
 
   const onFinish = async (values: any) => {
-    const data_sprint = (await recommend(subject, values.score, 5)) as any;
-    //console.log("Success:", values.score, subject, data);
-    const sub = subject === "physics" ? "物理" : "历史";
-    const dataSprintFileName = `2022年高考志愿推荐-${sub}-${values.score}.csv`;
-    downloadFile(data_sprint, values);
+    const data_sprint = (await recommend(subject, values.score, 6)) as any;
+    downloadFile(data_sprint, values, "冲刺院校");
+
+    const data_keep = (await recommend(subject, values.score, -20)) as any;
+    downloadFile(data_keep, values, "保守院校");
   };
 
   const onFinishFailed = (errorInfo: any) => {
