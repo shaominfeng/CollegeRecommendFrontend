@@ -1,7 +1,18 @@
-import { Button, Form, Input, Radio, RadioChangeEvent, Space } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Row,
+  Select,
+  Space,
+} from "antd";
 import React, { useState } from "react";
 import { recommend } from "../../apis/commom";
 import RecommendTable from "./RecommendTable";
+const { Option } = Select;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { parse } = require("json2csv");
 const Main = () => {
@@ -57,8 +68,16 @@ const Main = () => {
     console.log("radio checked", e.target.value);
     setSubject(e.target.value);
   };
+
+  const onCityChange = (value: string) => {
+    switch (value) {
+      case "jiangsu":
+        form.setFieldsValue("jiangsu");
+        return;
+    }
+  };
   return (
-    <div>
+    <div className="query">
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -70,33 +89,72 @@ const Main = () => {
         size="large"
         form={form}
       >
-        <Space align="center">
-          <Form.Item label="选科">
-            <Radio.Group onChange={onChange} value={subject}>
-              <Radio value="physics"> 物理 </Radio>
-              <Radio value="history"> 历史 </Radio>
-            </Radio.Group>
-          </Form.Item>
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            {" "}
+            <Form.Item name="city" label="地区" rules={[{ required: true }]}>
+              <Select
+                placeholder="Select a option and change input text above"
+                onChange={onCityChange}
+                defaultValue="jiangsu"
+              >
+                <Option value="jiangsu">江苏</Option>
+                <Option value="other" disabled>
+                  待添加
+                </Option>
+                {/*<Option value="other">other</Option>*/}
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={8}></Col>
+        </Row>
 
-          <Form.Item
-            label="总分"
-            name="score"
-            rules={[{ required: true, message: "总分忘记喽！" }]}
-          >
-            <Input />
-          </Form.Item>
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            {" "}
+            <Form.Item label="选科">
+              <Radio.Group onChange={onChange} value={subject}>
+                <Radio value="physics"> 物理 </Radio>
+                <Radio value="history"> 历史 </Radio>
+              </Radio.Group>
+            </Form.Item>
+          </Col>
+          <Col span={8}></Col>
+        </Row>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Space size="large">
-              <Button type="primary" onClick={query}>
-                查询
-              </Button>
-              <Button type="primary" htmlType="submit">
-                下载推荐表
-              </Button>
-            </Space>
-          </Form.Item>
-        </Space>
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            {" "}
+            <Form.Item
+              label="总分"
+              name="score"
+              rules={[{ required: true, message: "总分忘记喽！" }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={8}></Col>
+        </Row>
+
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Space size="large">
+                <Button type="primary" onClick={query}>
+                  查询
+                </Button>
+                <Button type="primary" htmlType="submit">
+                  下载推荐表
+                </Button>
+              </Space>
+            </Form.Item>
+          </Col>
+          <Col span={8}></Col>
+        </Row>
       </Form>
       {(universities as any)?.school?.schoolInfo ? (
         <RecommendTable
