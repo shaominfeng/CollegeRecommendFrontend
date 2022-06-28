@@ -10,8 +10,21 @@ const Main = () => {
   const [universities, setUniversities] = useState({});
   const onFinish = async (values: any) => {
     const data = (await recommend(subject, values.score)) as any;
-    console.log("Success:", values.score, subject, data);
-    const csv = parse(data["学校推荐"]["学校填报信息"]);
+    //console.log("Success:", values.score, subject, data);
+    const result = data.school.schoolInfo.map((item: any) => ({
+      院校代号: item.schoolId,
+      "院校、专业组（再选科目要求）": item.required,
+      投档最低分: item.lowestScore,
+      投档最低分同分考生排序项: {
+        语数成绩: item.sortRule.chineseAndMath,
+        语数最高成绩: item.sortRule.chineseAndMathHighest,
+        外语成绩: item.sortRule.english,
+        首选科目成绩: item.sortRule.firstSubject,
+        再选科目最高成绩: item.sortRule.secondSubject,
+        志愿号: item.sortRule.id,
+      },
+    }));
+    const csv = parse(result);
     const url = window.URL.createObjectURL(
       new Blob([csv], { type: "text/csv;charset=utf-8;" })
     );
@@ -57,57 +70,37 @@ const Main = () => {
         size="large"
         form={form}
       >
-        {/*<Form.Item*/}
-        {/*  label="选科"*/}
-        {/*  name="username"*/}
-        {/*  rules={[{ required: true, message: "Please input your username!" }]}*/}
-        {/*>*/}
-        {/*  <Input />*/}
-        {/*</Form.Item>*/}
-        <Form.Item label="选科">
-          <Radio.Group onChange={onChange} value={subject}>
-            <Radio value="physics"> 物理 </Radio>
-            <Radio value="history"> 历史 </Radio>
-          </Radio.Group>
-        </Form.Item>
+        <Space align="center">
+          <Form.Item label="选科">
+            <Radio.Group onChange={onChange} value={subject}>
+              <Radio value="physics"> 物理 </Radio>
+              <Radio value="history"> 历史 </Radio>
+            </Radio.Group>
+          </Form.Item>
 
-        <Form.Item
-          label="总分"
-          name="score"
-          rules={[{ required: true, message: "总分忘记喽！" }]}
-        >
-          <Input />
-        </Form.Item>
-        {/*<Form.Item*/}
-        {/*  label="Password"*/}
-        {/*  name="password"*/}
-        {/*  rules={[{ required: true, message: "Please input your password!" }]}*/}
-        {/*>*/}
-        {/*  <Input.Password />*/}
-        {/*</Form.Item>*/}
+          <Form.Item
+            label="总分"
+            name="score"
+            rules={[{ required: true, message: "总分忘记喽！" }]}
+          >
+            <Input />
+          </Form.Item>
 
-        {/*<Form.Item*/}
-        {/*  name="remember"*/}
-        {/*  valuePropName="checked"*/}
-        {/*  wrapperCol={{ offset: 8, span: 16 }}*/}
-        {/*>*/}
-        {/*  <Checkbox>Remember me</Checkbox>*/}
-        {/*</Form.Item>*/}
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Space size="large">
-            <Button type="primary" onClick={query}>
-              查询
-            </Button>
-            <Button type="primary" htmlType="submit">
-              下载推荐表
-            </Button>
-          </Space>
-        </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Space size="large">
+              <Button type="primary" onClick={query}>
+                查询
+              </Button>
+              <Button type="primary" htmlType="submit">
+                下载推荐表
+              </Button>
+            </Space>
+          </Form.Item>
+        </Space>
       </Form>
-      {(universities as any)["学校推荐"] ? (
+      {(universities as any)?.school?.schoolInfo ? (
         <RecommendTable
-          universities={(universities as any)["学校推荐"]["学校填报信息"]}
+          universities={(universities as any).school.schoolInfo}
         />
       ) : (
         ""

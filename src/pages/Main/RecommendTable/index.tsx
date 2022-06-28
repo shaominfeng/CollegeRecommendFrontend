@@ -1,27 +1,27 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import React from "react";
-const RecommendTable = (universities: any) => {
+const RecommendTable = (props: { universities: any }) => {
   interface DataType {
     key: React.Key;
-    id: string;
+    schoolId: string;
     required: string;
-    score: number;
+    lowestScore: number;
   }
 
   const columns: ColumnsType<DataType> = [
     {
       title: "院校代号",
-      dataIndex: "id",
-      key: "id",
-      width: 100,
+      dataIndex: "schoolId",
+      key: "schoolId",
+      width: 50,
       fixed: "left",
     },
     {
       title: "投当最低分数线",
-      dataIndex: "score",
-      key: "score",
-      width: 100,
+      dataIndex: "lowestScore",
+      key: "lowestScore",
+      width: 50,
       fixed: "left",
     },
     {
@@ -32,14 +32,14 @@ const RecommendTable = (universities: any) => {
       fixed: "left",
     },
   ];
-  console.log(universities);
+  console.log(props.universities);
   const data: DataType[] = [];
   for (let i = 0; i < 100; i++) {
     data.push({
       key: i,
-      id: universities[i]["院校代号"],
-      score: universities[i]["投当最低分数线"],
-      required: universities[i]["院校、专业组（再选科目要求）"],
+      schoolId: props.universities[i].schoolId,
+      lowestScore: props.universities[i].lowestScore,
+      required: props.universities[i].required,
     });
   }
   console.log("data", data);
@@ -48,8 +48,8 @@ const RecommendTable = (universities: any) => {
       columns={columns}
       dataSource={data}
       bordered
-      size="middle"
-      scroll={{ x: "calc(700px + 50%)", y: 240 }}
+      size="large"
+      // scroll={{ x: "calc(700px + 50%)", y: 240 }}
     />
   );
 };
