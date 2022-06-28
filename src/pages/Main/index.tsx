@@ -21,10 +21,9 @@ const Main = () => {
   const [subject, setSubject] = useState("physics");
   const [form] = Form.useForm();
   const [universities, setUniversities] = useState({});
-  const onFinish = async (values: any) => {
-    const data = (await recommend(subject, values.score)) as any;
-    //console.log("Success:", values.score, subject, data);
-    const result = data.school.schoolInfo.map((item: any) => ({
+
+  function downloadFile(data_sprint: any, values: any) {
+    const result = data_sprint.school.schoolInfo.map((item: any) => ({
       院校代号: item.schoolId,
       "院校、专业组（再选科目要求）": item.required,
       "2021年投档最低分": item.lowestScore,
@@ -48,6 +47,14 @@ const Main = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  const onFinish = async (values: any) => {
+    const data_sprint = (await recommend(subject, values.score, 5)) as any;
+    //console.log("Success:", values.score, subject, data);
+    const sub = subject === "physics" ? "物理" : "历史";
+    const dataSprintFileName = `2022年高考志愿推荐-${sub}-${values.score}.csv`;
+    downloadFile(data_sprint, values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -59,7 +66,8 @@ const Main = () => {
       console.log("Success:", subject, form.getFieldValue("score"));
       const response = (await recommend(
         subject,
-        form.getFieldValue("score")
+        form.getFieldValue("score"),
+        0
       )) as any;
       setUniversities(response);
       console.log(response);
@@ -109,7 +117,6 @@ const Main = () => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={1}></Col>
         </Row>
 
         <Row>

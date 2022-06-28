@@ -8,9 +8,9 @@ export function findAll() {
   });
 }
 
-export function recommend(subject: string, score: number) {
+export function recommend(subject: string, score: number, offset: number) {
   return request({
-    url: `/universities/subject/${subject}/score/${score}/recommend/100`,
+    url: `/universities/subject/${subject}/score/${score}/offset/${offset}/recommend/300`,
     method: "get",
     // baseURL: "http://127.0.0.1:3000/",
   });
