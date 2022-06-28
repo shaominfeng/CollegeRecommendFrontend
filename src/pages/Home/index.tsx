@@ -19,11 +19,9 @@ const Home = () => {
       </Header>
       <Content className="content">
         <Row className="main">
-          <Col span={4}></Col>
-          <Col span={16}>
+          <Col span={24}>
             <Main />
           </Col>
-          <Col span={4}></Col>
         </Row>
       </Content>
       {/*<Footer className="footer"> Footer</Footer>*/}

@@ -99,11 +99,12 @@ const RecommendTable = (props: { universities: any }) => {
   console.log("data", data);
   return (
     <Table
+      style={{ margin: "8px" }}
       columns={columns}
       dataSource={data}
       bordered
       size="large"
-      // scroll={{ x: "calc(700px + 50%)", y: 240 }}
+      scroll={{ x: "calc(700px + 50%)" }}
     />
   );
 };

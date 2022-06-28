@@ -1,6 +1,7 @@
 import {
   Button,
   Col,
+  Divider,
   Form,
   Input,
   Radio,
@@ -15,6 +16,7 @@ import RecommendTable from "./RecommendTable";
 const { Option } = Select;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { parse } = require("json2csv");
+import "./index.less";
 const Main = () => {
   const [subject, setSubject] = useState("physics");
   const [form] = Form.useForm();
@@ -90,14 +92,14 @@ const Main = () => {
         form={form}
       >
         <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
-            {" "}
+          <Col span={1}></Col>
+          <Col span={22}>
             <Form.Item name="city" label="地区">
               <Select
                 placeholder="Select a option and change input text above"
                 onChange={onCityChange}
                 defaultValue="jiangsu"
+                style={{ maxWidth: "200px" }}
               >
                 <Option value="jiangsu">江苏</Option>
                 <Option value="other" disabled>
@@ -107,12 +109,12 @@ const Main = () => {
               </Select>
             </Form.Item>
           </Col>
-          <Col span={8}></Col>
+          <Col span={1}></Col>
         </Row>
 
         <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
+          <Col span={1}></Col>
+          <Col span={22}>
             {" "}
             <Form.Item label="选科">
               <Radio.Group onChange={onChange} value={subject}>
@@ -121,27 +123,27 @@ const Main = () => {
               </Radio.Group>
             </Form.Item>
           </Col>
-          <Col span={8}></Col>
+          <Col span={1}></Col>
         </Row>
 
         <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
+          <Col span={1}></Col>
+          <Col span={22}>
             {" "}
             <Form.Item
               label="总分"
               name="score"
               rules={[{ required: true, message: "总分忘记喽！" }]}
             >
-              <Input />
+              <Input style={{ maxWidth: "200px" }} />
             </Form.Item>
           </Col>
-          <Col span={8}></Col>
+          <Col span={1}></Col>
         </Row>
 
         <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
+          <Col span={1}></Col>
+          <Col span={22}>
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Space size="large">
                 <Button type="primary" onClick={query}>
@@ -153,15 +155,15 @@ const Main = () => {
               </Space>
             </Form.Item>
           </Col>
-          <Col span={8}></Col>
+          <Col span={1}></Col>
         </Row>
       </Form>
 
       {(universities as any)?.school?.schoolInfo ? (
-        <div className="query">
+        <div>
           <div>
-            <Row>
-              <Col span={8}>
+            <Row style={{ margin: "8px" }}>
+              <Space split={<Divider type="vertical" />}>
                 <p>
                   2022年分数:{(universities as any).scoreAndRank["2022"].score}
                 </p>
@@ -177,7 +179,7 @@ const Main = () => {
                   2021年全省排名:
                   {(universities as any).scoreAndRank["2021"].rank}
                 </p>
-              </Col>
+              </Space>
             </Row>
           </div>
           <RecommendTable
