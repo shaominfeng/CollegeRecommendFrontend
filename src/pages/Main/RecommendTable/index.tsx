@@ -7,6 +7,12 @@ const RecommendTable = (props: { universities: any }) => {
     schoolId: string;
     required: string;
     lowestScore: number;
+    chineseAndMathHighest: number;
+    chineseAndMath: number;
+    english: number;
+    firstSubject: number;
+    secondSubject: number;
+    id: number;
   }
 
   const columns: ColumnsType<DataType> = [
@@ -31,6 +37,47 @@ const RecommendTable = (props: { universities: any }) => {
       width: 100,
       fixed: "left",
     },
+    {
+      title: "投档最低分同分考生排序项",
+      children: [
+        {
+          title: "语数成绩",
+          dataIndex: "chineseAndMath",
+          key: "chineseAndMath",
+          width: 50,
+        },
+        {
+          title: "语数最高成绩",
+          dataIndex: "chineseAndMathHighest",
+          key: "chineseAndMathHighest",
+          width: 50,
+        },
+        {
+          title: "外语成绩",
+          dataIndex: "english",
+          key: "english",
+          width: 50,
+        },
+        {
+          title: "首选科目成绩",
+          dataIndex: "firstSubject",
+          key: "firstSubject",
+          width: 50,
+        },
+        {
+          title: "再选科目最高成绩",
+          dataIndex: "secondSubject",
+          key: "secondSubject",
+          width: 50,
+        },
+        {
+          title: "志愿号",
+          dataIndex: "id",
+          key: "id",
+          width: 50,
+        },
+      ],
+    },
   ];
   console.log(props.universities);
   const data: DataType[] = [];
@@ -40,6 +87,13 @@ const RecommendTable = (props: { universities: any }) => {
       schoolId: props.universities[i].schoolId,
       lowestScore: props.universities[i].lowestScore,
       required: props.universities[i].required,
+      chineseAndMathHighest:
+        props.universities[i].sortRule.chineseAndMathHighest,
+      chineseAndMath: props.universities[i].sortRule.chineseAndMath,
+      english: props.universities[i].sortRule.english,
+      firstSubject: props.universities[i].sortRule.firstSubject,
+      secondSubject: props.universities[i].sortRule.secondSubject,
+      id: props.universities[i].sortRule.id,
     });
   }
   console.log("data", data);

@@ -93,7 +93,7 @@ const Main = () => {
           <Col span={8}></Col>
           <Col span={8}>
             {" "}
-            <Form.Item name="city" label="地区" rules={[{ required: true }]}>
+            <Form.Item name="city" label="地区">
               <Select
                 placeholder="Select a option and change input text above"
                 onChange={onCityChange}
