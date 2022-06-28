@@ -25,7 +25,7 @@ const Main = () => {
     const result = data.school.schoolInfo.map((item: any) => ({
       院校代号: item.schoolId,
       "院校、专业组（再选科目要求）": item.required,
-      投档最低分: item.lowestScore,
+      "2021年投档最低分": item.lowestScore,
       投档最低分同分考生排序项: {
         语数成绩: item.sortRule.chineseAndMath,
         语数最高成绩: item.sortRule.chineseAndMathHighest,
@@ -156,10 +156,34 @@ const Main = () => {
           <Col span={8}></Col>
         </Row>
       </Form>
+
       {(universities as any)?.school?.schoolInfo ? (
-        <RecommendTable
-          universities={(universities as any).school.schoolInfo}
-        />
+        <div className="query">
+          <div>
+            <Row>
+              <Col span={8}>
+                <p>
+                  2022年分数:{(universities as any).scoreAndRank["2022"].score}
+                </p>
+                <p>
+                  2022年全省排名:
+                  {(universities as any).scoreAndRank["2022"].rank}
+                </p>
+                <p>
+                  2021年换算分数:
+                  {(universities as any).scoreAndRank["2021"].score}
+                </p>
+                <p>
+                  2021年全省排名:
+                  {(universities as any).scoreAndRank["2021"].rank}
+                </p>
+              </Col>
+            </Row>
+          </div>
+          <RecommendTable
+            universities={(universities as any).school.schoolInfo}
+          />
+        </div>
       ) : (
         ""
       )}

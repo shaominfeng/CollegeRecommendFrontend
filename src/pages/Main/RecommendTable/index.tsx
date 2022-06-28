@@ -18,7 +18,7 @@ const RecommendTable = (props: { universities: any }) => {
       fixed: "left",
     },
     {
-      title: "投当最低分数线",
+      title: "2021年投档最低分",
       dataIndex: "lowestScore",
       key: "lowestScore",
       width: 50,
