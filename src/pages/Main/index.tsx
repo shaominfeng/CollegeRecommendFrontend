@@ -27,6 +27,7 @@ const Main = () => {
       院校代号: item.schoolId,
       "院校、专业组（再选科目要求）": item.required,
       "2021年投档最低分": item.lowestScore,
+      "2021年投档最低名次": item.lastYearRank,
       投档最低分同分考生排序项: {
         语数成绩: item.sortRule.chineseAndMath,
         语数最高成绩: item.sortRule.chineseAndMathHighest,

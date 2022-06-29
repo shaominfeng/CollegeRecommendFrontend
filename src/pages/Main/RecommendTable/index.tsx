@@ -7,6 +7,7 @@ const RecommendTable = (props: { universities: any }) => {
     schoolId: string;
     required: string;
     lowestScore: number;
+    lastYearRank: number;
     chineseAndMathHighest: number;
     chineseAndMath: number;
     english: number;
@@ -27,6 +28,13 @@ const RecommendTable = (props: { universities: any }) => {
       title: "2021年投档最低分",
       dataIndex: "lowestScore",
       key: "lowestScore",
+      width: 50,
+      fixed: "left",
+    },
+    {
+      title: "2021年投档最低名次",
+      dataIndex: "lastYearRank",
+      key: "lastYearRank",
       width: 50,
       fixed: "left",
     },
@@ -86,6 +94,7 @@ const RecommendTable = (props: { universities: any }) => {
       key: i,
       schoolId: props.universities[i]?.schoolId,
       lowestScore: props.universities[i]?.lowestScore,
+      lastYearRank: props.universities[i]?.lastYearRank,
       required: props.universities[i]?.required,
       chineseAndMathHighest:
         props.universities[i]?.sortRule.chineseAndMathHighest,
@@ -96,7 +105,7 @@ const RecommendTable = (props: { universities: any }) => {
       id: props.universities[i]?.sortRule?.id,
     });
   }
-  console.log("data", data);
+  // console.log("data", data);
   return (
     <Table
       style={{ margin: "8px" }}
