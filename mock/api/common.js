@@ -23,19 +23,24 @@ module.exports = {
   /**
    * method two : mock data with mockjs (http://mockjs.com/)
    */
-  ...produceRequest("/universities/year/2021/subject/history", "GET", (res, data) =>
-    res.json({
-      status: 200,
-      message: "success",
-      data: data,
-    })
+  ...produceRequest(
+    "/universities/year/2021/subject/history",
+    "GET",
+    (res, data) =>
+      res.json({
+        status: 200,
+        message: "success",
+        data: data,
+      })
   ),
-  ...produceRequest("/universities/subject/history/score/477/recommend/100", "GET", (res, data) =>
-    res.json({
-      status: 200,
-      message: "success",
-      data: data,
-    })
-  )
+  ...produceRequest(
+    "/universities/subject/history/score/477/recommend/100",
+    "GET",
+    (res, data) =>
+      res.json({
+        status: 200,
+        message: "success",
+        data: data,
+      })
+  ),
 };
-

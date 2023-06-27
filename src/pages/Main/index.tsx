@@ -18,6 +18,7 @@ const { Option } = Select;
 const { parse } = require("json2csv");
 import "./index.less";
 const Main = () => {
+  const currentYear = new Date().getFullYear();
   const [subject, setSubject] = useState("physics");
   const [form] = Form.useForm();
   const [universities, setUniversities] = useState({});
@@ -173,19 +174,26 @@ const Main = () => {
             <Row style={{ margin: "8px" }}>
               <Space split={<Divider type="vertical" />}>
                 <p>
-                  2022年分数:{(universities as any).scoreAndRank["2022"].score}
+                  {`${currentYear}年分数:`}
+                  {(universities as any).scoreAndRank[`${currentYear}`].score}
                 </p>
                 <p>
-                  2022年全省排名:
-                  {(universities as any).scoreAndRank["2022"].rank}
+                  {`${currentYear}年全省排名:`}
+                  {(universities as any).scoreAndRank[`${currentYear}`].rank}
                 </p>
                 <p>
-                  2021年换算分数:
-                  {(universities as any).scoreAndRank["2021"].score}
+                  {`${currentYear - 1}年换算分数:`}
+                  {
+                    (universities as any).scoreAndRank[`${currentYear - 1}`]
+                      .score
+                  }
                 </p>
                 <p>
-                  2021年全省排名:
-                  {(universities as any).scoreAndRank["2021"].rank}
+                  {`${currentYear - 1}年全省排名:`}
+                  {
+                    (universities as any).scoreAndRank[`${currentYear - 1}`]
+                      .rank
+                  }
                 </p>
               </Space>
             </Row>

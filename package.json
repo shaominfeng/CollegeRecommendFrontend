@@ -36,8 +36,8 @@
     "eject": "react-scripts eject",
     "prepare": "node ./prepare.js",
     "lint": "eslint \"{src,mock,public}/**/*.{ts,tsx,js}\" --fix",
-    "format": "prettier --write {src,mock,public}/**/*.{js,ts,tsx,md}",
-    "checkCodeStyle": "prettier --check {src,mock,public}/**/*.{js,ts,tsx,md}"
+    "format": "prettier --write {src,mock}/**/*.{js,ts,tsx,md}",
+    "checkCodeStyle": "prettier --check {src,mock}/**/*.{js,ts,tsx,md}"
   },
   "eslintConfig": {
     "extends": [
