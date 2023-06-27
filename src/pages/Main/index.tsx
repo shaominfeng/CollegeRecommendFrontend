@@ -59,10 +59,10 @@ const Main = () => {
   }
 
   const onFinish = async (values: any) => {
-    const data_sprint = (await recommend(subject, values.score, 6)) as any;
+    const data_sprint = (await recommend(subject, values.score, 5)) as any;
     downloadFile(data_sprint, values, "冲刺院校");
 
-    const data_keep = (await recommend(subject, values.score, -20)) as any;
+    const data_keep = (await recommend(subject, values.score, -10)) as any;
     downloadFile(data_keep, values, "保守院校");
   };
 
