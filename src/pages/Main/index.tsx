@@ -19,23 +19,30 @@ const { parse } = require("json2csv");
 import "./index.less";
 const Main = () => {
   const currentYear = new Date().getFullYear();
+  const lastYear = currentYear - 1;
   const [subject, setSubject] = useState("physics");
   const [form] = Form.useForm();
   const [universities, setUniversities] = useState({});
 
-  function downloadFile(data_sprint: any, values: any, type: string) {
-    const result = data_sprint.school.schoolInfo.map((item: any) => ({
+  function downloadFile(data: any, values: any, type: string) {
+    const result = data.school.schoolInfo.map((item: any) => ({
       院校代号: item.schoolId,
       "院校、专业组（再选科目要求）": item.required,
-      "2021年投档最低分": item.lowestScore,
-      "2021年投档最低名次": item.lastYearRank,
+      [`${lastYear}年投档最低分`]: item[lastYear].lowestScore,
+      [`${lastYear}年投档最低名次`]: item[lastYear].rank,
+      [`${lastYear - 1}年投档最低分`]: item[lastYear - 1]
+        ? item[lastYear - 1].lowestScore
+        : 0,
+      [`${lastYear - 1}年投档最低名次`]: item[lastYear - 1]
+        ? item[lastYear - 1].rank
+        : 0,
       投档最低分同分考生排序项: {
-        语数成绩: item.sortRule.chineseAndMath,
-        语数最高成绩: item.sortRule.chineseAndMathHighest,
-        外语成绩: item.sortRule.english,
-        首选科目成绩: item.sortRule.firstSubject,
-        再选科目最高成绩: item.sortRule.secondSubject,
-        志愿号: item.sortRule.id,
+        语数成绩: item[lastYear].sortRule.chineseAndMath,
+        语数最高成绩: item[lastYear].sortRule.chineseAndMathHighest,
+        外语成绩: item[lastYear].sortRule.english,
+        首选科目成绩: item[lastYear].sortRule.firstSubject,
+        再选科目最高成绩: item[lastYear].sortRule.secondSubject,
+        志愿号: item[lastYear].sortRule.id,
       },
     }));
     const csv = parse(result);
@@ -45,7 +52,7 @@ const Main = () => {
     const link = document.createElement("a");
     link.href = url;
     const sub = subject === "physics" ? "物理" : "历史";
-    link.download = `2022年高考志愿推荐-${sub}-${values.score}-${type}${data_sprint.school.schoolInfo.length}所.csv`;
+    link.download = `${currentYear}年高考志愿推荐-${sub}-${values.score}-${type}${data.school.schoolInfo.length}所.csv`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
