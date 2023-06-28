@@ -59,10 +59,21 @@ const Main = () => {
   }
 
   const onFinish = async (values: any) => {
-    const data_sprint = (await recommend(subject, values.score, 5)) as any;
+    const count = values.count ? values.count : 300;
+    const data_sprint = (await recommend(
+      subject,
+      values.score,
+      5,
+      count
+    )) as any;
     downloadFile(data_sprint, values, "冲刺院校");
 
-    const data_keep = (await recommend(subject, values.score, -10)) as any;
+    const data_keep = (await recommend(
+      subject,
+      values.score,
+      -10,
+      count
+    )) as any;
     downloadFile(data_keep, values, "保守院校");
   };
 
@@ -76,7 +87,8 @@ const Main = () => {
       const response = (await recommend(
         subject,
         form.getFieldValue("score"),
-        0
+        0,
+        300
       )) as any;
       console.log(response);
       setUniversities(response);
@@ -151,6 +163,9 @@ const Main = () => {
               name="score"
               rules={[{ required: true, message: "总分忘记喽！" }]}
             >
+              <Input style={{ maxWidth: "200px" }} />
+            </Form.Item>
+            <Form.Item label="推荐学校数量" name="count">
               <Input style={{ maxWidth: "200px" }} />
             </Form.Item>
           </Col>
